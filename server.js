@@ -13,7 +13,8 @@ class Server {
     // Initialize empty arrays for routes, models, and controllers
     this.routes = [];
     this.models = [];
-    this.controllers = [];
+    this.controllers = [];    
+    this.socket = socket;
   }
 
   // Define a method to configure the server
@@ -25,9 +26,10 @@ class Server {
   }
 
   // Define a method to add routes to the server
-  addRoutes(routes) {
+  addRoutes(path, routes) {
     // Add the routes to the routes array
     this.routes = this.routes.concat(routes);
+    this.path = path;
   }
 
   // Define a method to add models to the server
@@ -53,19 +55,18 @@ class Server {
     return new Promise((resolve, reject) => {
       try{
         // Initialize the routes, models, and controllers
-        this.routes.forEach(route => route.init(this.app));
+        this.routes.forEach(route => this.app.use(this.path, route));
         this.models.forEach(model => model.init());
         this.controllers.forEach(controller => controller.init());
 
         // Start the server
         this.app.listen(this.app.get('port'), () => {
           console.log(`Server listening on port ${this.app.get('port')}`);
-          // Start socket.io and listen for connections on the same port
         })
-        socket.http.listen(this.app.get('port'), () => {
+        // Start socket.io and listen for connections to our app-server
+        this.socket.http.listen(this.app, () => {
           console.log(`Socket.io listening on port ${this.app.get('port')}`);
         })
-        resolve();
       } catch(err) {
       console.error('Error creating server');
       reject(err);

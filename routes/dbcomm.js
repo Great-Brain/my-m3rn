@@ -3,10 +3,16 @@ require('dotenv').config();
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const express = require('express');
 const config = require('../config');
-const router = express.Router({
-  prefix: '/db'
-});
+const router = express.Router();
+
 router.use(express.json());
+
+
+// middleware that is specific to this router
+router.use((req, res, next) => {
+  console.log('Time: ', Date.now())
+  next()
+})
 
 router.get("/", async (req, res) => {
   try {
@@ -72,3 +78,4 @@ router.post("/", async (req, res) => {
     res.status(500).send(e);
   }
 });
+module.exports = router;

@@ -11,9 +11,8 @@ const { getClient } = require('./common/forgeOauth');
 const config = require('../config');
 const dav3 = require('autodesk.forge.designautomation');
 const ForgeAPI = require('forge-apis');
-const router = express.Router({
-    prefix: '/api'
-  });
+const router = express.Router();
+
 router.use(bodyParser.json());
 
 // Middleware for obtaining a token for each request.
@@ -49,7 +48,7 @@ class Utils {
     /// Returns the directory where bindles are stored on the local machine.
     /// </summary>
     static get LocalBundlesFolder() {
-        return (_path.resolve(_path.join(__dirname, '../', 'bundles')));
+        return (_path.resolve(_path.join(__dirname, '/', 'bundles')));
     }
 
     /// <summary>
@@ -183,6 +182,22 @@ class Utils {
     }
 }
 
+
+// middleware that is specific to this router
+router.use((req, res, next) => {
+    console.log('Time: ', Date.now())
+    next()
+  })
+  
+router.get("/", async (req, res) => {
+    try {
+        const posts = "hello";
+        res.json(posts);
+    } catch (e) {
+        console.error(e);
+        res.status(500).send(e);
+}
+});
 /// <summary>
 /// Names of app bundles on this project
 /// </summary>

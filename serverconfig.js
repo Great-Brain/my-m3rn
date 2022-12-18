@@ -7,8 +7,8 @@ const fabinfoModel = require('./models/fabinfo');
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const config = require('./config');
 const env = require('dotenv').config();
-const route1 = require('./routes/DesignAutomation');
-const route2 = require('./routes/dbcomm');
+const daRoutes = require('./routes/DesignAutomation');
+const dbCommRoutes = require('./routes/dbcomm');
 
 // Import the Server class
 const Server = require('./server');
@@ -41,8 +41,9 @@ server.addMiddleware(express.json({
 }));
 
 // Add routes to the server
-server.addRoutes(route1);
-server.addRoutes(route2);
+server.addRoutes("/db", dbCommRoutes);
+server.addRoutes("/api", daRoutes);
+
 //server.addRoutes(require('./routes/forgeBucket'))
 
 // Export the custom server

@@ -1,9 +1,7 @@
 const express = require('express');
 const { getClient } = require('../routes/common/oauth');
 const config = require('../config');
-const router = express.Router({
-  prefix: '/fb'
-});
+const router = express.Router();
 // Middleware for obtaining a token for each request.
 router.use(async (req, res, next) => {
   req.oauth_client = await getClient();
@@ -29,3 +27,4 @@ router.post("/forge/buckets", async (req, res) => {
     res.status(500).send(e);
   }
 });
+module.exports = router;
