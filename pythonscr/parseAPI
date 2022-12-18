@@ -1,0 +1,27 @@
+# Import necessary libraries
+import os
+from pdfminer.pdfparser import PDFParser
+from pdfminer.pdfdocument import PDFDocument
+
+# Open the PDF file
+with open('path/to/pdf/file', 'rb') as f:
+    # Create a PDF parser object associated with the file object
+    parser = PDFParser(f)
+    # Create a PDF document object that stores the document structure
+    doc = PDFDocument(parser)
+    # Iterate over all the pages in the document
+    for page in doc.get_pages():
+        # Get all the text on the page
+        text = page.extract_text()
+        # Split the text into lines
+        lines = text.split('\n')
+        # Iterate over the lines
+        for line in lines:
+            # Check if the line is a heading
+            if line.startswith('###'):
+                # Get the heading text
+                heading = line.replace('###', '').strip()
+                # Create an endpoint URL using the heading
+                endpoint = '/api/get/' + heading
+                # Print the endpoint
+                print(endpoint)
