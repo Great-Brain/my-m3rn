@@ -7,12 +7,13 @@ const https = require('https');
 const formdata = require('form-data');
 const bodyParser = require('body-parser');
 const multer = require('multer');
-const router = express.Router();
 const { getClient } = require('../routes/common/oauth');
 const config = require('../config');
 const dav3 = require('autodesk.forge.designautomation');
 const ForgeAPI = require('forge-apis');
-
+const router = express.Router({
+    prefix: '/api'
+  });
 router.use(bodyParser.json());
 
 // Middleware for obtaining a token for each request.

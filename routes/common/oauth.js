@@ -1,5 +1,5 @@
 const { AuthClientTwoLegged } = require('forge-apis');
-const config = require('../../copy over/config');
+const config = require('../../config');
 
 // Tokens are auto-refreshed, keeping clients in simple cache
 let cache = {};

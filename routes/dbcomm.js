@@ -1,78 +1,74 @@
-const fabinfoModel = require("./models/fabinfo");
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+const fabinfoModel = require("../models/fabinfo");
 require('dotenv').config();
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const router = express.Router();
-const { getClient } = require('../routes/common/oauth');
+const express = require('express');
 const config = require('../config');
+const router = express.Router({
+  prefix: '/db'
+});
+router.use(express.json());
 
 router.get("/", async (req, res) => {
-    try {
-      const posts = await fabinfoModel.find();
-      res.json(posts);
-    } catch (e) {
-      console.log(e);
-    }
-  });
-  
-  router.get("/:id", async (req, res) => {
-    const { id } = req.params;
-    try {
-      const post = await fabinfoModel.findById(id);
+  try {
+    const posts = await fabinfoModel.find();
+    res.json(posts);
+  } catch (e) {
+    console.error(e);
+    res.status(500).send(e);
+  }
+});
+
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const post = await fabinfoModel.findById(id);
+    if (post) {
       res.json(post);
-    } catch (e) {
-      res.status(500).send(e);
+    } else {
+      res.status(404).send('Post not found');
     }
-  });
-  
-  router.delete("/:id", async (req, res) => {
-    const { id } = req.params;
-    try {
-      const post = await fabinfoModel.findById(id);
+  } catch (e) {
+    console.error(e);
+    res.status(500).send(e);
+  }
+});
+
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const post = await fabinfoModel.findById(id);
+    if (post) {
       await post.remove();
-      res.json("deleted");
-    } catch (e) {
-      res.status(500).send(e);
+      res.json('deleted');
+    } else {
+      res.status(404).send('Post not found');
     }
-  });
-  
-  router.put("/:id", async (req, res) => {
-    const { id } = req.params;
-    const { title, content } = req.body;
-    try {
-      const post = await fabinfoModel.findByIdAndUpdate(id, { title, content });
-      res.json(post);
-    } catch (e) {
-      res.status(500).send(e);
-    }
-  });
-  
-  router.post("/", async (req, res) => {
-    const { title, content } = req.body;
-    try {
-      const newPost = await fabinfoModel.create({
-        title,
-        content,
-      });
-      res.json(newPost);
-    } catch (e) {
-      res.status(500).send(e);
-    }
-  });
-  
-  router.post("/forge/", async (req, res) => {
-      try {
-          // Use the Forge API to list your buckets
-          forge_api.buckets.list()
-              .then(function (buckets) {
-                  console.log(buckets);
-              })
-              .catch(function (error) {
-                  console.error(error);
-              });
-          res.status(400)
-      } catch (e) {
-          res.status(500).send(e);
-      }
-  });
+  } catch (e) {
+    console.error(e);
+    res.status(500).send(e);
+  }
+});
+
+router.put("/:id", async (req, res) => {
+  const { id } = req.params;
+  const { title, content } = req.body;
+  try {
+    const post = await fabinfoModel.findByIdAndUpdate(id, { title, content });
+    res.json(post);
+  } catch (e) {
+    res.status(500).send(e);
+  }
+});
+
+router.post("/", async (req, res) => {
+  const { title, content } = req.body;
+  try {
+    const newPost = await fabinfoModel.create({
+      title,
+      content,
+    });
+    res.json(newPost);
+  } catch (e) {
+    res.status(500).send(e);
+  }
+});

@@ -1,19 +1,17 @@
-const app = require('./server');
-const socketIO = require('./socket.io')(app);
+//This code starts the express app and listens for incoming HTTP requests on the specified port. 
+//It also starts the socket.io server and listens for incoming connections on the same port. 
+//Finally, it includes error handling to handle the case where the port is already in use.
 
-const port = app.get('port');
+const Server = require('./serverconfig');
+const server = new Server();
 
-let server = socketIO.http.listen(port, () => {
-    console.log(`Server listening on port ${port}`);
-});
-
-server.on('error', (err) => {
-    if (err.errno === 'EACCES') {
-        console.error(`Port ${port} already in use.\nExiting...`);
-        process.exit(1);
-    }
-});
-
-app.listen(port, () => {
-    console.log(`Listening at port ${port}`);
-});
+server.configure({
+    port: process.env.PORT || 8000
+    });
+server.start()
+    .then(() => {
+        console.log('Server started');
+    })
+    .catch((err) => {
+        console.error('Error starting server', err);
+    });
