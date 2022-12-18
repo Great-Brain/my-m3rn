@@ -10,7 +10,7 @@ const connectionParams = {
 };
 
 // MongoDB connection URI
-const uri = `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@maincluster.loxtteu.mongodb.net/?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_CLUSTER}`;
 
 // Connect to MongoDB using the connection URI and parameters
 const connexion = mongoose

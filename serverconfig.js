@@ -2,18 +2,25 @@
 const express = require('express');
 const path = require('path');
 const cookieSession = require('cookie-session');
-const connection = require('./connection');
-const forgeApi = require('./forge_connection');
+const connection = require('./routes/common/dbConnection');
 const fabinfoModel = require('./models/fabinfo');
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const config = require('./config');
 const env = require('dotenv').config();
+const route1 = require('./routes/DesignAutomation');
+const route2 = require('./routes/dbcomm');
 
 // Import the Server class
 const Server = require('./server');
 
 // Create a new server instance
 const server = new Server();
+
+// Configure the server
+server.configure({
+  port: process.env.PORT || 8000,
+  mongoDb: connection
+});
 
 // Check if the APS_CLIENT_ID and APS_CLIENT_SECRET environment variables are set
 if (!config.credentials.client_id || !config.credentials.client_secret) {
@@ -34,20 +41,9 @@ server.addMiddleware(express.json({
 }));
 
 // Add routes to the server
-server.addRoutes(require('./routes/DesignAutomation'));
-server.addRoutes(require('./routes/dbcomm'));
-server.addRoutes(require('./routes/forgeBucket'))
+server.addRoutes(route1);
+server.addRoutes(route2);
+//server.addRoutes(require('./routes/forgeBucket'))
 
-// Configure the server
-server.configure({
-  port: process.env.PORT || 8000
-});
-
-// Start the server
-server.start()
-  .then(() => {
-    console.log('Server started');
-  })
-  .catch((err) => {
-    console.error('Error starting server', err);
-  });
+// Export the custom server
+module.exports = server;
