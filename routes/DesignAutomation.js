@@ -48,7 +48,9 @@ class Utils {
     /// Returns the directory where bindles are stored on the local machine.
     /// </summary>
     static get LocalBundlesFolder() {
-        return (_path.resolve(_path.join(__dirname, '/', 'bundles')));
+        const bundlesFolder = '../bundles';
+        const g = _path.resolve(__dirname, bundlesFolder);
+        return g;
     }
 
     /// <summary>

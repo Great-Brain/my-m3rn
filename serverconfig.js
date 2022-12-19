@@ -40,9 +40,8 @@ server.addMiddleware(express.json({
   limit: '50mb',
 }));
 
-// Add routes to the server
 server.addRoutes("/db", dbCommRoutes);
-server.addRoutes("/api", daRoutes);
+server.addRoutes("/forge_api", daRoutes);
 
 //server.addRoutes(require('./routes/forgeBucket'))
 

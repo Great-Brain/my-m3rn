@@ -26,10 +26,15 @@ class Server {
   }
 
   // Define a method to add routes to the server
-  addRoutes(path, routes) {
+  addRoutes(path, router) {
+    const routes = {
+      path: path,
+      router: router
+    };
+    this.routes.push(routes);
     // Add the routes to the routes array
-    this.routes = this.routes.concat(routes);
-    this.path = path;
+    //this.routes = this.routes.concat(routes);
+    //this.path = path;
   }
 
   // Define a method to add models to the server
@@ -55,7 +60,7 @@ class Server {
     return new Promise((resolve, reject) => {
       try{
         // Initialize the routes, models, and controllers
-        this.routes.forEach(route => this.app.use(this.path, route));
+        this.routes.forEach(route => this.app.use(route.path, route.router));
         this.models.forEach(model => model.init());
         this.controllers.forEach(controller => controller.init());
 
