@@ -41,7 +41,7 @@ server.addMiddleware(express.json({
 }));
 
 server.addRoutes("/db", dbCommRoutes);
-server.addRoutes("/forge_api", daRoutes);
+server.addRoutes("/api", daRoutes);
 
 //server.addRoutes(require('./routes/forgeBucket'))
 

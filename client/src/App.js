@@ -3,12 +3,7 @@ import React, { useState } from 'react';
 // Common packages: jQuery, Bootstrap
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.js';
-import $ from 'jquery';
-
-// Socket.io -->
-//const socketIoPath = path.resolve(__dirname, '../../socket.io');
-//import socketIo from socketIoPath;
-// Files for this pnoroject
+// Files for this project
 import './js/ApsDesignAutomation' 
 
 const Nav = () => {
@@ -26,7 +21,7 @@ const Nav = () => {
           style={{ float: 'right', marginTop: '15px', cursor: 'pointer' }}
           data-toggle="modal"
           data-target="#defineActivityModal"
-          title="Configura AppBundle & Activity"
+          title="Configure AppBundle & Activity"
         >
           <span style={{ paddingRight: '5px' }}>
             <span className="glyphicon glyphicon-cog glyphiconTop mlink" /> Configure

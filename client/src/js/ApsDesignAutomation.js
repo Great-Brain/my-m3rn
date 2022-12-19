@@ -1,6 +1,8 @@
 import $ from 'jquery';
+import io from 'socket.io-client';
 
-$(document).ready(function () {
+
+document.addEventListener('DOMContentLoaded', function() {
     prepareLists();
 
     $('#clearAccount').click(clearAccount);
@@ -19,7 +21,7 @@ function prepareLists() {
 
 function list(control, endpoint) {
     $('#' + control).find('option').remove().end();
-    jQuery.ajax({
+    $.ajax({
         url: endpoint,
         success: function (list) {
             if (list.length === 0)
@@ -27,24 +29,24 @@ function list(control, endpoint) {
                     disabled: true,
                     text: 'Nothing found'
                 }));
-            else
-                list.forEach(function (item) {
-                    $('#' + control).append($('<option>', {
-                        value: item,
-                        text: item
-                    }));
-                });
+            //else
+              //  list.forEach(function (item) {
+                //    $('#' + control).append($('<option>', {
+                  //      value: item,
+                    //    text: item
+                    //}));
+               // });
         }
     });
 }
 
 function clearAccount() {
-    if (!confirm('Clear existing activities & appbundles before start. ' +
-        'This is useful if you believe there are wrong settings on your account.' +
-        '\n\nYou cannot undo this operation. Proceed?'))
-        return;
+    const response = window.prompt('Clear existing activities & appbundles before start. ' +
+    'This is useful if you believe there are wrong settings on your account.' +
+    '\n\nYou cannot undo this operation. Proceed? (yes/no)');
+    if (response !== 'yes') return;
 
-    jQuery.ajax({
+    $.ajax({
         url: 'api/aps/designautomation/account',
         method: 'DELETE',
         success: function () {
@@ -71,7 +73,7 @@ function createAppBundleActivity() {
 }
 
 function createAppBundle(cb) {
-    jQuery.ajax({
+    $.ajax({
         url: 'api/aps/designautomation/appbundles',
         method: 'POST',
         contentType: 'application/json',
@@ -91,7 +93,7 @@ function createAppBundle(cb) {
 }
 
 function createActivity(cb) {
-    jQuery.ajax({
+    $.ajax({
         url: 'api/aps/designautomation/activities',
         method: 'POST',
         contentType: 'application/json',
