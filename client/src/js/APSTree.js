@@ -50,7 +50,7 @@ $(document).ready(function () {
   $.getJSON("/api/aps/oauth/v1/clientid", function (res) {
     $("#ClientID").val(res.id);
     $("#provisionAccountSave").click(function () {
-      $('#provisionAccountModal').modal('toggle');
+      $('#BIM360Modal').modal('toggle');
       $('#sourceHubs').jstree(true).refresh();
       $('#destinationHubs').jstree(true).refresh();
     });

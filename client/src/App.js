@@ -17,7 +17,6 @@ const App = () => {
     <Routes>
         <Route path='/' element={<DA />} />
         <Route path='/2' element={<RIO />} />
-
     </Routes>
     </Router>
   );
