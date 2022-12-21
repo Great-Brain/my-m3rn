@@ -1,18 +1,17 @@
 const fabinfoModel = require("../models/fabinfo");
-require('dotenv').config();
-const { MongoClient, ServerApiVersion } = require('mongodb');
-const express = require('express');
-const config = require('../config');
+require("dotenv").config();
+const { MongoClient, ServerApiVersion } = require("mongodb");
+const express = require("express");
+const config = require("../config");
 const router = express.Router();
 
 router.use(express.json());
 
-
 // middleware that is specific to this router
 router.use((req, res, next) => {
-  console.log('Time: ', Date.now())
-  next()
-})
+  console.log("Time: ", Date.now());
+  next();
+});
 
 router.get("/", async (req, res) => {
   try {
@@ -31,7 +30,7 @@ router.get("/:id", async (req, res) => {
     if (post) {
       res.json(post);
     } else {
-      res.status(404).send('Post not found');
+      res.status(404).send("Post not found");
     }
   } catch (e) {
     console.error(e);
@@ -45,9 +44,9 @@ router.delete("/:id", async (req, res) => {
     const post = await fabinfoModel.findById(id);
     if (post) {
       await post.remove();
-      res.json('deleted');
+      res.json("deleted");
     } else {
-      res.status(404).send('Post not found');
+      res.status(404).send("Post not found");
     }
   } catch (e) {
     console.error(e);

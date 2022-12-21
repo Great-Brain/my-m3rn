@@ -1,11 +1,12 @@
 //calls a custom server
-const server = require('./serverconfig');
+const server = require("./serverconfig");
 
 // Start the server
-server.start()
+server
+  .start()
   .then(() => {
-    console.log('Server started');
+    console.log("Server started");
   })
   .catch((err) => {
-    console.error('Error starting server', err);
+    console.error("Error starting server", err);
   });
