@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 $(document).ready(function () {
     prepareLists();
 
@@ -12,27 +14,28 @@ $(document).ready(function () {
 function prepareLists() {
     list('activity', '/api/aps/designautomation/activities');
     list('engines', '/api/aps/designautomation/engines');
-    list('localBundles', '/api/appbundles');
+    list('localBundles', 'http://localhost:8000/api/appbundles');
 }
 
 function list(control, endpoint) {
     $('#' + control).find('option').remove().end();
-    jQuery.ajax({
-        url: endpoint,
-        success: function (list) {
-            if (list.length === 0)
+    axios.get(endpoint).then(response => {
+        const list = response.data;
+        if (list.length === 0) {
+            $('#' + control).append($('<option>', {
+                disabled: true,
+                text: 'Nothing found'
+            }));
+        } else {
+            list.forEach(item => {
                 $('#' + control).append($('<option>', {
-                    disabled: true,
-                    text: 'Nothing found'
+                    value: item,
+                    text: item
                 }));
-            else
-                list.forEach(function (item) {
-                    $('#' + control).append($('<option>', {
-                        value: item,
-                        text: item
-                    }));
-                });
+            });
         }
+    }).catch(error => {
+        console.error(error);
     });
 }
 
@@ -42,13 +45,14 @@ function clearAccount() {
         '\n\nYou cannot undo this operation. Proceed?'))
         return;
 
-    jQuery.ajax({
+    axios({
         url: 'api/aps/designautomation/account',
         method: 'DELETE',
-        success: function () {
-            prepareLists();
-            writeLog('Account cleared, all appbundles & activities deleted');
-        }
+    }).then(response => {
+        prepareLists();
+        writeLog('Account cleared, all appbundles & activities deleted');
+    }).catch(error => {
+        console.error(error);
     });
 }
 
@@ -69,115 +73,94 @@ function createAppBundleActivity() {
 }
 
 function createAppBundle(cb) {
-    jQuery.ajax({
+    axios({
         url: 'api/aps/designautomation/appbundles',
         method: 'POST',
-        contentType: 'application/json',
+        headers: {
+            'Content-Type': 'application/json',
+        },
         data: JSON.stringify({
             zipFileName: $('#localBundles').val(),
             engine: $('#engines').val()
         }),
-        success: function (res) {
-            writeLog('AppBundle: ' + res.appBundle + ', v' + res.version);
-            if (cb)
-                cb();
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-            writeLog(' -> ' + (xhr.responseJSON && xhr.responseJSON.diagnostic ? xhr.responseJSON.diagnostic : thrownError));
+    }).then(response => {
+        const res = response.data;
+        writeLog('AppBundle: ' + res.appBundle + ', v' + res.version);
+        if (cb) {
+            cb();
         }
+    }).catch(error => {
+        console.error(error);
     });
 }
 
 function createActivity(cb) {
-    jQuery.ajax({
+    axios({
         url: 'api/aps/designautomation/activities',
         method: 'POST',
-        contentType: 'application/json',
+        headers: {
+            'Content-Type': 'application/json',
+        },
         data: JSON.stringify({
             zipFileName: $('#localBundles').val(),
             engine: $('#engines').val()
         }),
-        success: function (res) {
-            writeLog('Activity: ' + res.activity);
-            if (cb)
-                cb();
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-            writeLog(' -> ' + (xhr.responseJSON && xhr.responseJSON.diagnostic ? xhr.responseJSON.diagnostic : thrownError));
+    }).then(response => {
+        const res = response.data;
+        writeLog('Activity: ' + res.activity);
+        if (cb) {
+            cb();
         }
+    }).catch(error => {
+        console.error(error);
     });
 }
 
 function startWorkitem() {
-    var inputFileField = document.getElementById('inputFile');
+    const inputFileField = document.getElementById('inputFile');
     if (inputFileField.files.length === 0) {
         alert('Please select an input file');
         return;
     }
-    if ($('#activity').val() === null)
-        return (alert('Please select an activity'));
-    var file = inputFileField.files[0];
-    startConnection(function () {
-        var formData = new FormData();
-        formData.append('inputFile', file);
-        formData.append('data', JSON.stringify({
-            width: $('#width').val(),
-            height: $('#height').val(),
-            activityName: $('#activity').val(),
-            browerConnectionId: connectionId
-        }));
-        writeLog('Uploading input file...');
-        $.ajax({
-            url: 'api/aps/designautomation/workitems',
-            data: formData,
-            processData: false,
-            contentType: false,
-            //contentType: 'multipart/form-data',
-            //dataType: 'json',
-            type: 'POST',
-            success: function (res) {
-                writeLog('Workitem started: ' + res.workItemId);
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                writeLog(' -> ' + (xhr.responseJSON && xhr.responseJSON.diagnostic ? xhr.responseJSON.diagnostic : thrownError));
-            }
-        });
-    });
-}
-
-function writeLog(text) {
-    $('#outputlog').append('<div style="border-top: 1px dashed #C0C0C0">' + text + '</div>');
-    var elem = document.getElementById('outputlog');
-    elem.scrollTop = elem.scrollHeight;
-}
-
-var connection;
-var connectionId;
-
-function startConnection(onReady) {
-    if (connection && connection.connected) {
-        if (onReady)
-            onReady();
+    const file = inputFileField.files[0];
+    if (!file.name.match(/\.(dwg|dxf|rvt)$/i)) {
+        alert('Invalid file type');
         return;
     }
-    connection = io();
-    connection.on('connect', function () {
-        connectionId = connection.id;
-        if (onReady)
-            onReady();
-    });
 
-    connection.on('downloadResult', function (url) {
-        writeLog('<a href="' + url + '">Download result file here</a>');
-    });
+    startConnection(function () {
+        const formData = new FormData();
+        formData.append('inputFile', file);
 
-    connection.on('downloadReport', function (url) {
-        writeLog('<a href="' + url + '">Download report file here</a>');
-    });
-
-    connection.on('onComplete', function (message) {
-        if (typeof message === 'object')
-            message = JSON.stringify(message, null, 2);
-        writeLog(message);
+        const activityId = $('#activity').val();
+        writeLog("Starting workitem for " + activityId);
+        axios({
+            url: 'api/aps/designautomation/workitems',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            data: JSON.stringify({
+                activityId: activityId,
+                arguments: {
+                    inputFile: {
+                        url: 'http://localhost:3000/api/storage/' + file.name,
+                        headers: {
+                            'Content-Type': file.type
+                        }
+                    }
+                }
+            }),
+        }).then(response => {
+            const res = response.data;
+            writeLog('Workitem: ' + res.id);
+            if (res.status === 'pending') {
+                writeLog(' -> ' + res.status);
+            } else {
+                writeLog(' -> ' + res.status + ': ' + res.results.outputFile.url);
+            }
+        }).catch(error => {
+            console.error(error);
+        });
     });
 }
