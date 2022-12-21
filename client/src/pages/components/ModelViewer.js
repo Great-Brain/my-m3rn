@@ -52,13 +52,13 @@ const ModelViewer = () => {
                       </div>
                       <div className="input-group">
                         <span className="input-group-addon">
-                          <input type="checkbox" id="includeFireRating" checked />
+                          <input type="checkbox" id="includeFireRating"  />
                         </span>
                         <label className="form-control">Door Type Fire Rating </label>
                       </div>
                       <div className="input-group">
                         <span className="input-group-addon">
-                          <input type="checkbox" id="includeComments" checked />
+                          <input type="checkbox" id="includeComments" defaultChecked />
                         </span>
                         <label className="form-control"> Door Instance Comments </label>
                       </div>
@@ -74,7 +74,7 @@ const ModelViewer = () => {
                       </div>
                       <div className="input-group">
                         <span className="input-group-addon">
-                          <input type="radio" name="exportOrImport" value="export" checked />
+                          <input type="radio" name="exportOrImport" value="export" defaultChecked />
                         </span>
                         <label className="form-control">Export parameters To Excel</label>
                       </div>

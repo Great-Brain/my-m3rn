@@ -7,7 +7,7 @@ const Nav = () => {
         <ul className="nav navbar-nav left col-lg-6">
           <li>
             <a href="http://developer.autodesk.com" target="_blank">
-              <img alt="Autodesk APS" src="https://cdn.autodesk.io/logo/black/simple.png" height="20" />
+              <img alt="james app" src="" height="20" />
             </a>
           </li>
         </ul>
@@ -15,7 +15,7 @@ const Nav = () => {
         <ul className="nav navbar-nav right col-lg-2">
           <li>
             <div style={{ float: 'right', marginTop: '15px' }}>
-              <span style={{ paddingRight: '5px' }} data-toggle="modal" data-target="#provisionAccountModal" title="Enable my BIM 360 Account">
+              <span style={{ paddingRight: '5px' }} data-toggle="modal" data-target="#BIM360Modal" title="Enable my BIM 360 Account">
                 <span className="glyphicon glyphicon-cog glyphiconTop mlink" /> Enable my BIM 360 Account
               </span>
             </div>

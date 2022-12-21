@@ -27,7 +27,7 @@ const AppModal = () => {
             For this sample the .ZIP name is used as suffix to define <b>AppBundle</b> and <b>Activity</b>
             names. Activities will have file and params input, and file output.
             </div>
-            <div style="text-align: left;">
+            <div  style={{ textAlign: 'left' }}>
                   <label id="configText">
                     <h4>Status</h4>
                   </label>
