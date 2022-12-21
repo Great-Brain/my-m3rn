@@ -27,12 +27,22 @@ const AppModal = () => {
             For this sample the .ZIP name is used as suffix to define <b>AppBundle</b> and <b>Activity</b>
             names. Activities will have file and params input, and file output.
             </div>
-              <div className="modal-footer">
+            <div style="text-align: left;">
+                  <label id="configText">
+                    <h4>Status</h4>
+                  </label>
+                </div>
+                <div className="progress progress-striped active">
+                  <div id="configProgressBar" width="90%" className="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style={{ width: '0%' }}>
+                    <span className="sr-only">40% 完成</span>
+                  </div>
+                </div>
+                <div className="modal-footer">
                   <button className="btn btn-danger" id="clearAccount">Clear account</button>
                   <button type="button" className="btn btn-primary" id="createAppBundleActivity">Create/Update</button>
+                </div>
               </div>
           </div>
-        </div>
       </div>
     );
   };

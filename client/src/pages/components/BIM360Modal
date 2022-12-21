@@ -1,0 +1,40 @@
+<!-- Modal Provision BIM360  -->
+    <div class="modal fade" id="provisionAccountModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Cancel">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">Thanks for using this sample!</h4>
+          </div>
+          <div class="modal-body">
+            <p>To view your BIM 360 Docs files on this app please authorize my APS Client ID with your BIM 360 Docs
+              Account.
+            </p>
+            <p>
+              <button type="button" class="btn btn-info" data-toggle="modal" data-target="#provisionAccountStepsModal">
+                Show me the steps
+                <span class="glyphicon glyphicon-new-window"></span>
+              </button>
+            </p>
+            Use this as APS Client ID:
+            <div class="input-group">
+              <input type="text" readonly="true" aria-describedby="CopyClientID" id="ClientID" class="form-control" value="" />
+              <span class="input-group-addon" style="cursor: pointer" data-clipboard-target="#ClientID" id="CopyClientID">Copy
+                to clipboard</span>
+            </div>
+            And this App Name:
+            <div class="input-group">
+              <input type="text" readonly="true" aria-describedby="CopyAppName" id="AppName" class="form-control" value="Excel Export & Import Sample" />
+              <span class="input-group-addon" style="cursor: pointer" data-clipboard-target="#AppName" id="CopyAppName">Copy
+                to clipboard</span>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" id="provisionAccountSave">Done</button>
+          </div>
+        </div>
+      </div>
+    </div>

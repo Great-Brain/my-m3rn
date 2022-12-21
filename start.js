@@ -1,5 +1,6 @@
 //calls a custom server
 const server = require('./serverconfig');
+
 // Start the server
 server.start()
   .then(() => {

@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cookieSession = require('cookie-session');
 
 // Define a Server class to represent the server-side logic of the application
 class Server {
@@ -72,6 +73,11 @@ class Server {
         this.socket.http.listen(this.app, () => {
           console.log(`Socket.io listening on port ${this.app.get('port')}`);
         })
+        this.app.use(cookieSession({
+          name: 'aps_session',
+          keys: ['aps_secure_key'],
+          maxAge: 14 * 24 * 60 * 60 * 1000 // 14 days, same as refresh token
+        }));
       } catch(err) {
       console.error('Error creating server');
       reject(err);

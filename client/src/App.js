@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import DA from './pages/DA';
-import Nav from './pages/components/Nav';
+import RIO from './pages/IOViewer';
+import Nav from './pages/components/Nav'
 
 //const path = require('path');
 // Common packages: jQuery, Bootstrap
@@ -15,6 +16,8 @@ const App = () => {
     <Nav />
     <Routes>
         <Route path='/' element={<DA />} />
+        <Route path='/2' element={<RIO />} />
+
     </Routes>
     </Router>
   );

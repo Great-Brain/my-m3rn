@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import AppModal from './components/AppModal';
-import Forms from './components/Forms'
+import ModelViewer from './components/ModelViewer';
+import BIM360Modal from './components/BIM360Modal';
+import Help from './components/Help';
 //const path = require('path');
 // Common packages: jQuery, Bootstrap
 //import 'bootstrap/dist/css/bootstrap.css';
@@ -25,8 +27,10 @@ function DA () {
 
   return (
     <div>
-      <Forms />
       <AppModal />
+      <ModelViewer />
+      <BIM360Modal />
+      <Help />
     </div>
   );
 };

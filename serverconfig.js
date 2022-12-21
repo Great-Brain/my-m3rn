@@ -1,7 +1,6 @@
 //creates a new instance of the Server class with middleware, routes, and then starts it on a port. 
 const express = require('express');
 const path = require('path');
-const cookieSession = require('cookie-session');
 const connection = require('./routes/common/dbConnection');
 const fabinfoModel = require('./models/fabinfo');
 const { MongoClient, ServerApiVersion } = require('mongodb');
@@ -9,6 +8,11 @@ const config = require('./config');
 const env = require('dotenv').config();
 const daRoutes = require('./routes/DesignAutomation');
 const dbCommRoutes = require('./routes/dbcomm');
+const oauthRoutes = require('./routes/oauth');
+const datamanagementRoutes = require('./routes/datamanagement');
+const userRoutes = require('./routes/user'));
+const da4revitRoutes = require('./routes/da4revit');
+const daconfigureRoutes = require('./routes/daconfigure')
 
 // Import the Server class
 const Server = require('./server');
@@ -42,6 +46,11 @@ server.addMiddleware(express.json({
 
 server.addRoutes("/db", dbCommRoutes);
 server.addRoutes("/api", daRoutes);
+server.addRoutes('/api/aps', oauthRoutes);
+server.addRoutes('/api/aps', datamanagementRoutes);
+server.addRoutes('/api/aps', useRoutesr);
+server.addRoutes('/api/aps', da4revitRoutes);
+server.addRoutes('/api/aps', daconfigureRoutes);
 
 //server.addRoutes(require('./routes/forgeBucket'))
 
