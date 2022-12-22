@@ -4,7 +4,7 @@ const provisionAccountModal = () => {
   return (
     <div
       className="modal fade"
-      id="AccountModal"
+      id="provisionAccountModal"
       tabIndex="-1"
       role="dialog"
       aria-labelledby="myModalLabel"
