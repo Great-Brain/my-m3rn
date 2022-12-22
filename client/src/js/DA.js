@@ -12,8 +12,8 @@ $(document).ready(function () {
 });
 
 function prepareLists() {
-  list("activity", "/api/aps/designautomation/activities");
-  list("engines", "/api/aps/designautomation/engines");
+  list("activity", "http://localhost:8000/api/aps/designautomation/activities");
+  list("engines", "http://localhost:8000/api/aps/designautomation/engines");
   list("localBundles", "http://localhost:8000/api/appbundles");
 }
 
@@ -164,7 +164,7 @@ function startWorkitem() {
         activityId: activityId,
         arguments: {
           inputFile: {
-            url: "http://localhost:3000/api/storage/" + file.name,
+            url: "http://localhost:8000/api/storage/" + file.name,
             headers: {
               "Content-Type": file.type,
             },

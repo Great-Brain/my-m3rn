@@ -176,7 +176,7 @@ router.post("/datamanagement/v1/folder", async (req, res) => {
 // Request body must be structured as 'form-data' dictionary
 // with the uploaded file under "fileToUpload" key, and the bucket name under "bucketKey".
 router.post(
-  "/datamanagement/v1/oss/object",
+  "http://localhost:8000/datamanagement/v1/oss/object",
   multer({ dest: "uploads/" }).single("fileToUpload"),
   async (req, res, next) => {
     fs.readFile(req.file.path, async (err, data) => {

@@ -37,7 +37,7 @@ function onDocumentLoadFailure(viewerErrorCode) {
 }
 
 function getAPSToken(callback) {
-  fetch("/api/aps/oauth/v1/token").then((res) => {
+  fetch("http://localhost:8000/api/aps/oauth/v1/token").then((res) => {
     res.json().then((data) => {
       callback(data.access_token, data.expires_in);
     });

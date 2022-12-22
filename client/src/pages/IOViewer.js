@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import AppModal from "./components/AppModal";
+import AppModal from "./components/Navbar/AppModal";
 import ModelViewer from "./components/ModelViewer";
-import ProvisionAccountModal from "./components/provisionAccountModal";
-import Help from "./components/Help";
+import ProvisionAccountModal from "./components/Navbar/provisionAccountModal";
+import Help from "./components/Navbar/Help";
+import Nav from "./components/Navbar/Nav";
 //const path = require('path');
 // Common packages: jQuery, Bootstrap
 //import 'bootstrap/dist/css/bootstrap.css';
@@ -27,10 +28,7 @@ function IOViewer() {
 
   return (
     <div>
-      <AppModal />
       <ModelViewer />
-      <ProvisionAccountModal />
-      <Help />
     </div>
   );
 }

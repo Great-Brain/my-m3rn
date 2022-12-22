@@ -47,8 +47,8 @@ if (!String.prototype.format) {
 }
 
 function prepareLists() {
-  list("engines", "/api/aps/designautomation/engines");
-  list("localBundles", "/api/aps/appbundles");
+  list("engines", "http://localhost:8000/api/aps/designautomation/engines");
+  list("localBundles", "http://localhost:8000/api/aps/appbundles");
 }
 
 function list(control, endpoint) {
@@ -77,7 +77,7 @@ async function deleteAppBundle(appBundleName) {
 
   $.ajax({
     url:
-      "/api/aps/designautomation/appbundles/" +
+      "http://localhost:8000/api/aps/designautomation/appbundles/" +
       encodeURIComponent(appBundleName),
     type: "delete",
     dataType: "json",
@@ -96,7 +96,7 @@ async function deleteActivity(activityName) {
 
   $.ajax({
     url:
-      "/api/aps/designautomation/activities/" +
+      "http://localhost:8000/api/aps/designautomation/activities/" +
       encodeURIComponent(activityName),
     type: "delete",
     dataType: "json",

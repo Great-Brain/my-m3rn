@@ -1,7 +1,9 @@
-﻿$(document).ready(function () {
+﻿/* eslint-env jquery */
+
+$(document).ready(function () {
   // first, check if current visitor is signed in
   jQuery.ajax({
-    url: "/api/aps/oauth/v1/token",
+    url: "http://localhost:8000/api/aps/oauth/v1/token",
     success: function (res) {
       // yes, it is signed in...
       $("#autodeskSignOutButton").show();
@@ -12,7 +14,7 @@
       // prepare sign out
       $("#autodeskSignOutButton").click(function () {
         $("#hiddenFrame").on("load", function (event) {
-          location.href = "/api/aps/oauth/v1/signout";
+          location.href = "http://localhost:8000/api/aps/oauth/v1/signout";
         });
         $("#hiddenFrame").attr(
           "src",
@@ -38,14 +40,14 @@
 
   $("#autodeskSigninButton").click(function () {
     jQuery.ajax({
-      url: "/api/aps/oauth/v1/url",
+      url: "http://localhost:8000/api/aps/oauth/v1/url",
       success: function (url) {
         location.href = url;
       },
     });
   });
 
-  $.getJSON("/api/aps/oauth/v1/clientid", function (res) {
+  $.getJSON('http://localhost:8000/api/aps/oauth/v1/clientid', function (res) {
     $("#ClientID").val(res.id);
     $("#provisionAccountSave").click(function () {
       $("#provisionAccountModal").modal("toggle");
@@ -62,7 +64,7 @@ function prepareUserHubsTree() {
         themes: { icons: true },
         multiple: false,
         data: {
-          url: "/api/aps/datamanagement/v1",
+          url: "http://localhost:8000/api/aps/datamanagement/v1",
           dataType: "json",
           cache: false,
           data: function (node) {
@@ -127,7 +129,7 @@ function prepareUserHubsTree() {
 
 function showUser() {
   jQuery.ajax({
-    url: "/api/aps/user/v1/profile",
+    url: "http://localhost:8000/api/aps/user/v1/profile",
     success: function (profile) {
       var img = '<img src="' + profile.picture + '" height="20px">';
       $("#userInfo").html(img + profile.name);

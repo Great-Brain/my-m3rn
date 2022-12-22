@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import AppModal from "./components/AppModal";
 import Forms from "./components/Forms";
 //const path = require('path');
 // Common packages: jQuery, Bootstrap
@@ -26,7 +25,6 @@ function DA() {
   return (
     <div>
       <Forms />
-      <AppModal />
     </div>
   );
 }

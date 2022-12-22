@@ -161,7 +161,7 @@ async function uploadExcel(file) {
   // formData.append('bucketKey', BUCKET_KEY);
 
   $.ajax({
-    url: "/api/aps/datamanagement/v1/oss/object",
+    url: "http://localhost:8000/api/aps/datamanagement/v1/oss/object",
     data: formData,
     processData: false,
     contentType: false,
@@ -183,7 +183,7 @@ async function exportExcel(inputRvt, inputJson) {
 
   jQuery.get({
     url:
-      "/api/aps/da4revit/v1/revit/" + encodeURIComponent(inputRvt) + "/excel",
+      "http://localhost:8000/api/aps/da4revit/v1/revit/" + encodeURIComponent(inputRvt) + "/excel",
     contentType: "application/json", // The data type was sent
     dataType: "json", // The data type will be received
     data: inputJson,
@@ -203,7 +203,7 @@ async function importExcel(inputRvt, inputExcel, inputJson, itemId, fileName) {
 
   jQuery.post({
     url:
-      "/api/aps/da4revit/v1/revit/" + encodeURIComponent(inputRvt) + "/excel",
+      "http://localhost:8000/api/aps/da4revit/v1/revit/" + encodeURIComponent(inputRvt) + "/excel",
     contentType: "application/json", // The data type was sent
     dataType: "json", // The data type will be received
     data: JSON.stringify({
@@ -233,7 +233,7 @@ function cancelWorkitem(workitemId) {
   }
 
   $.ajax({
-    url: "/api/aps/da4revit/v1/revit/" + encodeURIComponent(workitemId),
+    url: "http://localhost:8000/api/aps/da4revit/v1/revit/" + encodeURIComponent(workitemId),
     type: "delete",
     dataType: "json",
     success: function (res) {
@@ -255,7 +255,7 @@ function getWorkitemStatus(workitemId) {
   }
 
   jQuery.get({
-    url: "/api/aps/da4revit/v1/revit/" + encodeURIComponent(workitemId),
+    url: "http://localhost:8000/api/aps/da4revit/v1/revit/" + encodeURIComponent(workitemId),
     dataType: "json",
     success: function (res) {
       def.resolve(res);

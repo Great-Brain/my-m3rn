@@ -22,8 +22,8 @@ const Nav = () => {
             >
               <span
                 style={{ paddingRight: "5px" }}
-                data-toggle="modal"
-                data-target="#AccountModal"
+                data-bs-toggle="modal"
+                data-bs-target="#AccountModal"
                 title="Enable my BIM 360 Account"
               >
                 <span className="glyphicon glyphicon-cog glyphiconTop mlink" />{" "}
@@ -39,12 +39,12 @@ const Nav = () => {
             >
               <span
                 style={{ paddingRight: "5px" }}
-                data-toggle="modal"
+                data-bs-toggle="modal"
                 data-target="#defineActivityModal"
                 title="Configura AppBundle & Activity"
               >
                 <span className="glyphicon glyphicon-cog glyphiconTop mlink" />{" "}
-                Configure
+                Configure 
               </span>
             </div>
           </li>
