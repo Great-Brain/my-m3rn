@@ -17,11 +17,13 @@ const Nav = () => {
         </ul>
         <ul className="nav navbar-nav right col-lg-2">
           <li>
-            <div style={{ float: "right", marginTop: "15px" }}>
+            <div 
+            style={{ float: "right", marginTop: "15px", cursor: "pointer" }}
+            >
               <span
                 style={{ paddingRight: "5px" }}
                 data-toggle="modal"
-                data-target="#BIM360Modal"
+                data-target="#AccountModal"
                 title="Enable my BIM 360 Account"
               >
                 <span className="glyphicon glyphicon-cog glyphiconTop mlink" />{" "}

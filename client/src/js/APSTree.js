@@ -48,7 +48,7 @@
   $.getJSON("/api/aps/oauth/v1/clientid", function (res) {
     $("#ClientID").val(res.id);
     $("#provisionAccountSave").click(function () {
-      $("#BIM360Modal").modal("toggle");
+      $("#provisionAccountModal").modal("toggle");
       $("#sourceHubs").jstree(true).refresh();
       $("#destinationHubs").jstree(true).refresh();
     });

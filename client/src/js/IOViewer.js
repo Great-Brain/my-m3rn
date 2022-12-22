@@ -1,4 +1,6 @@
-﻿$(document).ready(function () {
+﻿    /* eslint-env jquery */
+
+$(document).ready(function () {
   $('input:radio[name="exportOrImport"]').click(function () {
     var checkValue = $('input:radio[name="exportOrImport"]:checked').val();
     if (checkValue === "import") {

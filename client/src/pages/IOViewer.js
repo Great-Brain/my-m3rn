@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import AppModal from "./components/AppModal";
 import ModelViewer from "./components/ModelViewer";
-import BIM360Modal from "./components/BIM360Modal";
+import ProvisionAccountModal from "./components/provisionAccountModal";
 import Help from "./components/Help";
 //const path = require('path');
 // Common packages: jQuery, Bootstrap
@@ -29,7 +29,7 @@ function IOViewer() {
     <div>
       <AppModal />
       <ModelViewer />
-      <BIM360Modal />
+      <ProvisionAccountModal />
       <Help />
     </div>
   );

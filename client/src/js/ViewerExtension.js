@@ -1,6 +1,5 @@
-// *******************************************
-// Custom Property Panel
-// *******************************************
+    /* eslint-env jquery */
+
 function CustomPropertyPanel(viewer, options) {
   this.viewer = viewer;
   this.options = options;

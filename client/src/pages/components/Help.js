@@ -48,12 +48,10 @@ const Help = () => {
                 From the toolbar, select{" "}
                 <strong>SETTINGS &gt; Apps &amp; Integrations</strong>.
                 <br />
-                <img src="./res/Step1.png" width="500" />
               </li>
               <li>
                 Click the <strong>Add Integration</strong> button.
                 <br />
-                <img src="./res/Step2.png" />
               </li>
               <li>
                 Select <strong>BIM 360 Account Administration</strong> and{" "}
@@ -77,7 +75,6 @@ const Help = () => {
               </li>
               <li>
                 Click <strong>Save</strong>.<br />
-                <img src="./res/Step3.png" width="500" />
               </li>
               <p></p>
               <p>
